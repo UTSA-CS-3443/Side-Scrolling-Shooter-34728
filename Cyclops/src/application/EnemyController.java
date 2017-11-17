@@ -32,8 +32,8 @@ public class EnemyController extends Enemy {
         moveCycle += 1;
         if (moveCycle > 100)
                 moveCycle = 0;
-        if (moveCycle < 70)
-            moveTo(xTopLeftLoc+xVel, yTopLeftLoc+yVel);
+        if (moveCycle < 3)
+            moveTo(xCenterLoc+xVel, yTopLeftLoc+yVel);
     }  
 }
 

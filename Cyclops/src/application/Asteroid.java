@@ -63,7 +63,7 @@ public class Asteroid extends EnemyController {
         
         // Draw, move and size the initial frame
         enemy = new Group(imgEnemy.get(0));
-        enemy.setTranslateX(xTopLeftLoc);
+        enemy.setTranslateX(xCenterLoc);
         enemy.setTranslateY(yTopLeftLoc);
         enemy.setScaleX(xSize / IMAGE_X_SIZE);
         enemy.setScaleY(ySize / IMAGE_Y_SIZE);

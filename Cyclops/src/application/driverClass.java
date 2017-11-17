@@ -115,7 +115,8 @@ public class driverClass extends Application {
 			if ((timestamp - lastSpawn >= currentRate * (long)1000000000)) {
 				currentRate *= rateProgression;
 				
-				double xAsteroidStart = (double)(myRandom.nextInt((int) (screenX - (Asteroid.SIDE_BUFFER *2))) + Asteroid.SIDE_BUFFER);
+			
+				double xAsteroidStart = (double)(myRandom.nextInt((int) (screenY- (Asteroid.SIDE_BUFFER *2))) + Asteroid.SIDE_BUFFER);
 				int xAngleStart = myRandom.nextInt(enemyMaxAngle * 2) + 180 - enemyMaxAngle; 
 				
 				randomInt = myRandom.nextInt(100);

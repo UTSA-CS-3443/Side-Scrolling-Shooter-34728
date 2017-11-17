@@ -69,9 +69,9 @@ abstract class Sprite extends Group {
         init();
         
         if (topLeftXY)
-            setXYBasedOnTopLeft(xStart, yStart);
+            setXYBasedOnTopLeft(xStart, xStart);
         else
-            setXYBasedOnBottomCenter(xStart, yStart);
+            setXYBasedOnBottomCenter(xStart, xStart);
                 
         draw();
         root.getChildren().add(this);
@@ -99,11 +99,32 @@ abstract class Sprite extends Group {
      * @param   yTopLeft    The Y coordinate of the desired location
      */  
     public void moveTo (double xTopLeft, double yTopLeft) { 
-        this.setTranslateX(xTopLeft - xTopLeftLoc + this.getTranslateX());
+        this.setTranslateX( this.getTranslateX() + xTopLeftLoc - xTopLeft);
         this.setTranslateY(yTopLeft - yTopLeftLoc + this.getTranslateY());
         setXYBasedOnTopLeft(xTopLeft, yTopLeft);
     }
 
+   /* 
+    public void setXYBasedOnCenter (double x, double y) { 
+
+        xCenterLoc =  x;
+
+        yCenterLoc =  y;
+
+        xTopLeftLoc = x - (xSize/2);
+
+        yTopLeftLoc = y - (ySize/2);
+
+        xBottomCenterLoc = x;
+
+        yBottomCenterLoc = y + (ySize/2);
+
+    }  */
+    
+    
+    
+    
+    
     /**
      * Calculate XY coordinates assuming we are given x,y for top-left.
      *
@@ -115,7 +136,7 @@ abstract class Sprite extends Group {
         yTopLeftLoc = y;
         xBottomCenterLoc = x + (xSize/2);
         yBottomCenterLoc = y + ySize;
-        xCenterLoc =  x + (xSize/2);
+        xCenterLoc =  x + (xSize);
         yCenterLoc =  y + (ySize/2);
     }    
 
@@ -138,7 +159,7 @@ abstract class Sprite extends Group {
      * Move the sprite on it's set path and velocity.
      */  
     public void move () { 
-        moveTo(xTopLeftLoc+xVel, yTopLeftLoc +yVel);
+        moveTo(xCenterLoc+xVel, yCenterLoc +yVel);
     }
  
     /**
@@ -288,7 +309,7 @@ abstract class Sprite extends Group {
      * Rotate the sprite based on the "angle" global var.
      */
     public void rotate () { 
-        this.getTransforms().add(new Rotate(angle, xBottomCenterLoc, yBottomCenterLoc));
+        this.getTransforms().add(new Rotate(angle, xTopLeftLoc, yTopLeftLoc));
     }     
         
     /**
