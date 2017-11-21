@@ -63,7 +63,7 @@ public class Asteroid extends EnemyController {
         
         // Draw, move and size the initial frame
         enemy = new Group(imgEnemy.get(0));
-        enemy.setTranslateX(xCenterLoc);
+        enemy.setTranslateX(700);
         enemy.setTranslateY(yTopLeftLoc);
         enemy.setScaleX(xSize / IMAGE_X_SIZE);
         enemy.setScaleY(ySize / IMAGE_Y_SIZE);
@@ -75,7 +75,7 @@ public class Asteroid extends EnemyController {
                 imgIndex = 0;
             enemy.getChildren().setAll(imgEnemy.get(imgIndex++));
         };
-        enemyAnimation = new Timeline(new KeyFrame(Duration.millis(30), chopperEventHandler));
+        enemyAnimation = new Timeline(new KeyFrame(Duration.millis(500), chopperEventHandler));
         enemyAnimation.setCycleCount(Timeline.INDEFINITE);
         enemyAnimation.play();
     }  

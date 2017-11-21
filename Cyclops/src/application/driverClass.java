@@ -50,7 +50,7 @@ public class driverClass extends Application {
 	
 	
 	
-	public final static String 	BACKGROUND_IMG = "resources/space.png";
+	public final static String 	BACKGROUND_IMG = "resources/space2.gif";
 	public final static double	BACKGROUND_SIZE_X = 1000;
 	public final static double 	BACKGROUND_SIZE_Y = 800;
 	public final double backgroundScaleX = screenX / BACKGROUND_SIZE_X;
@@ -80,6 +80,8 @@ public class driverClass extends Application {
 		
 		imgBackground = new ImageView(new Image(getClass().getClassLoader().getResource(BACKGROUND_IMG).toString()));
 		imgBackground.getTransforms().add(new Scale(backgroundScaleX, backgroundScaleY, 0, 0));
+		imgBackground.setFitHeight(800);
+		imgBackground.setFitWidth(1000);
 		
 		root.getChildren().add(imgBackground);
 		root.getChildren().add(enemies);
@@ -135,14 +137,14 @@ public class driverClass extends Application {
 	gameLoop = new AnimationTimer() {
 		@Override
 		public void handle(long l) {
-			double y = imgBackground.getLayoutY() + backgroundScrollSpeed;
+			//double y = imgBackground.getLayoutY() + backgroundScrollSpeed;
 			
-			if(Double.compare(y, 0) >= 0) {
-				y=0;
-			}
-			imgBackground.setLayoutY(y);
-			}
-		};
+			//if(Double.compare(y, 0) >= 0) {
+		//		y=0;
+			//}
+			//imgBackground.setLayoutY(y);
+		} //changed background, this code seems to do nothing now
+	};
 		
 		gameLoop.start();
 	}
