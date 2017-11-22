@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 
 package application;
@@ -207,4 +207,4 @@ public class Asteroid extends EnemyController {
         enemyDeathAnimation.play();
     }      
 }
->>>>>>> branch 'master' of https://github.com/UTSA-CS-3443/Side-Scrolling-Shooter-34728.git
+
