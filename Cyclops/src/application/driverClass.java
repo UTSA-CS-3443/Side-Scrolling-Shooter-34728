@@ -67,7 +67,6 @@ public class driverClass extends Application {
 
 	@Override
 	public void start(Stage firstStage) {
-		// TODO Auto-generated method stub
 		Stage mainStage = firstStage;
 		mainStage.setTitle("Starclops");
 		
