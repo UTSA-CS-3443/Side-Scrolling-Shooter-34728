@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package application;
 
 import java.io.File;
@@ -945,5 +945,5 @@ public static void playShot(int delay, int numberOfLoops) {
 
 
 
->>>>>>> branch 'master' of https://github.com/UTSA-CS-3443/Side-Scrolling-Shooter-34728.git
+
 	}
