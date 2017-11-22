@@ -1,26 +1,9 @@
 package application;
-<<<<<<< HEAD
 import java.io.File;
-=======
-
-import javafx.application.*;
-import javafx.scene.paint.*;
-import javafx.geometry.*;
-import javafx.scene.text.*;
-import javafx.scene.transform.Scale;
-import javafx.stage.Stage;
-import javafx.scene.effect.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.Group;
-import javafx.scene.input.*;
-
->>>>>>> 1333257434d2cdb851ca5d46fa258c46f1d9f549
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-<<<<<<< HEAD
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
@@ -220,105 +203,6 @@ private void spawnSprites() {
 	 AnimationTimer spawnTime = new AnimationTimer() {
 		long lastSpawn = 0;
 		int randomInt;
-=======
-import javafx.animation.*;
-import javafx.scene.Scene;
-
-public class driverClass extends Application {
-	
-	protected final double	screenX = 800;
-	protected final double	screenY = 600;
-	
-	protected ArrayList<Enemy> enemyList;
-	
-	protected Group enemies;
-	
-	protected double startingSpawnRate = 1;
-	
-	protected double currentRate = startingSpawnRate;
-	
-	protected double rateProgression = 0.995;
-	
-	protected int enemyMaxAngle = 15;
-	
-	protected Scene scene;
-	
-	protected Stage mainStage;
-	
-	protected Group root;
-	
-	protected Random myRandom = new Random();
-	
-	protected AnimationTimer spawnTime;
-	
-	
-	
-	
-	
-	public final static String 	BACKGROUND_IMG = "resources/space2.gif";
-	public final static double	BACKGROUND_SIZE_X = 1000;
-	public final static double 	BACKGROUND_SIZE_Y = 800;
-	public final double backgroundScaleX = screenX / BACKGROUND_SIZE_X;
-	public final double backgroundScaleY = screenY / BACKGROUND_SIZE_Y;
-	protected ImageView imgBackground;
-	// TODO MORE Variables declared here
-	private AnimationTimer gameLoop;
-	double backgroundScrollSpeed = 0.5;
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
-
-	@Override
-	public void start(Stage firstStage) {
-		// TODO Auto-generated method stub
-		Stage mainStage = firstStage;
-		mainStage.setTitle("Starclops");
-		
-		Group root = new Group();
-		Scene scene = new Scene(root, screenX, screenY, Color.BLACK);
-		mainStage.setScene(scene);
-		
-		enemyList = new ArrayList<Enemy>();
-		enemies = new Group();
-		
-		imgBackground = new ImageView(new Image(getClass().getClassLoader().getResource(BACKGROUND_IMG).toString()));
-		imgBackground.getTransforms().add(new Scale(backgroundScaleX, backgroundScaleY, 0, 0));
-		imgBackground.setFitHeight(800);
-		imgBackground.setFitWidth(1000);
-		
-		root.getChildren().add(imgBackground);
-		root.getChildren().add(enemies);
-		//add more things here (bullets/guns/enemies)
-		//add instructions/score
-		spawnSprites();
-		
-		mainStage.show();
-		
-		StartGameLoop();
-		
-	}
-	
-	public void reset_game() {
-		currentRate = startingSpawnRate;
-		clearSprites();
-	}
-	
-	public void clearSprites() {
-		for (Iterator<Enemy> enemyIterator = enemyList.iterator(); enemyIterator.hasNext();) {
-			Enemy enemyNode = enemyIterator.next();
-			enemies.getChildren().remove(enemyNode);
-			enemyIterator.remove();
-		}
-	}
-	
-	private void spawnSprites() {
-		spawnTime = new AnimationTimer() {
-			long lastSpawn = 0;
-			int randomInt;
-		@Override
->>>>>>> 1333257434d2cdb851ca5d46fa258c46f1d9f549
 		public void handle(long timestamp) {
 			if ((timestamp - lastSpawn >= currentRate * (long)1000000000)) {
 				currentRate *= rateProgression;
@@ -337,15 +221,9 @@ public class driverClass extends Application {
 			}
 		};
 		spawnTime.start();
-<<<<<<< HEAD
 		
 	}
 private void StartGameLoop() {
-=======
-	}
-	
-	private void StartGameLoop() {
->>>>>>> 1333257434d2cdb851ca5d46fa258c46f1d9f549
 	gameLoop = new AnimationTimer() {
 		@Override
 		public void handle(long l) {
@@ -360,7 +238,6 @@ private void StartGameLoop() {
 		
 		gameLoop.start();
 	}
-<<<<<<< HEAD
 
 
 
@@ -437,6 +314,3 @@ public static void playShot(int delay, int numberOfLoops) {
 
 
 	}
-=======
-}
->>>>>>> 1333257434d2cdb851ca5d46fa258c46f1d9f549
