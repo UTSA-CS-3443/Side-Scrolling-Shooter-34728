@@ -6,36 +6,12 @@ import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-
-public class Player {
-    protected static Node rectBasicTimeline;
 
 
+public class Player{
+	protected static Node rectBasicTimeline;
 	static void movePlayerBy(int dx, int dy) {
     	
     

@@ -1,13 +1,16 @@
-/*package application;
+package application;
 
+import java.util.ArrayList;
 
+//import javafx.geometry.Bounds;
+import javafx.scene.shape.*;
 
 public class Collision {
 	
 	
-	private int checkShapeIntersection(Shape block) {
-	    boolean collisionDetected = false;
-	    for (Shape static_bloc : nodes) {
+	public int checkBulletIntersection(Rectangle bullet, ArrayList<Enemy> enemies) {
+	    //boolean collisionDetected = false;
+	    /*for (Shape static_bloc : nodes) {
 	      if (static_bloc != block) {
 	        static_bloc.setFill(Color.GREEN);
 
@@ -16,15 +19,21 @@ public class Collision {
 	          collisionDetected = true;
 	        }
 	      }
+	    }*/
+	    for(Enemy asteroid : enemies) {
+	    	if(asteroid.getBoundsInParent().intersects(bullet.getBoundsInParent())) {
+	          asteroid.startDeath();
+	          return 1;
+	        }
 	    }
-
+	    return 0;
+	    /*
 	    if (collisionDetected) {
-	    	block.setFill(Color.BLUE);
+	    	asteroid.startDeath();
 	    	return 1;
 	    } else {
 	    	block.setFill(Color.GREEN);
 	    	return 0;
-	    }
+	    }*/
 	}
 }
-*/

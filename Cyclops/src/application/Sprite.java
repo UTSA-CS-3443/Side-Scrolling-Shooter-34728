@@ -12,7 +12,7 @@ import javafx.scene.shape.Circle;
 
 import javafx.scene.transform.Rotate;
 
-
+import java.util.*;
 
 /**
 
@@ -409,13 +409,25 @@ abstract class Sprite extends Group {
      */  
 
     public void setSpeed (double sSpeed) { 
-
+    	Random myR = new Random();
         speed = sSpeed;
-
-        xVel = Math.cos(Math.toRadians(angle-90)) * speed;
-
-        yVel = Math.sin(Math.toRadians(angle-90)) * speed;
-
+        int randI = myR.nextInt(3);
+        //xVel = Math.cos(Math.toRadians(angle-90)) * speed;
+        xVel = 60;
+        
+        
+        //yVel = Math.sin(Math.toRadians(angle-90)) * speed;
+        switch(randI) {
+        case 0: 
+        	yVel = 0;
+        	break;
+        case 1:
+        	yVel = 1.5;
+        	break;
+        case 2:
+        	yVel = -1.5;
+        	break;
+        }
     }    
 
     

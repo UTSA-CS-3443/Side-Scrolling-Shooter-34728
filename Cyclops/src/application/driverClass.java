@@ -13,6 +13,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -50,7 +51,7 @@ public class driverClass extends Application {
     private static Image warrior;
     static Node  node;
     
-    
+    private Rectangle detectBullet;
     
     public static void main(String[] args) {
     	launch(args);
@@ -79,7 +80,6 @@ public class driverClass extends Application {
 		imgBackground.setFitWidth(1000);	
 		
        
-		
         
         //declaring group
         Group root = new Group();
@@ -139,6 +139,7 @@ public class driverClass extends Application {
 	         System.exit(0);
 	     });
 	     
+	     detectBullet = new Rectangle(node.getLayoutX()+70,node.getLayoutY()+30 , 70, 10);
         AnimationTimer timer = new AnimationTimer() {
         	           
             public void handle(long now) {
@@ -152,8 +153,8 @@ public class driverClass extends Application {
                 
                 //everything that is inside the if statement is how the bullet is made
                if (shoot == true){
-            	   final Rectangle rectBasicTimeline = new Rectangle(node.getLayoutX()+70,node.getLayoutY()+30 , 70, 10);//location and size of bullet
-             		rectBasicTimeline.setFill(Color.LIMEGREEN);
+            	   	final Rectangle rectBasicTimeline = new Rectangle(node.getLayoutX()+70,node.getLayoutY()+30 , 70, 10);//location and size of bullet
+            	   	rectBasicTimeline.setFill(Color.LIMEGREEN);
              		final Timeline timeline = new Timeline();
              		timeline.setCycleCount(1);
              		timeline.setAutoReverse(false);
@@ -166,6 +167,9 @@ public class driverClass extends Application {
              		//play the bullet sound effect once
              		playShot(1, 1);
              		
+             		//method call for collision (bullet -> asteroid)
+             		
+             		
              		timeline.getKeyFrames().add(kf);
              		timeline.play();
              		//so it wont be shooting like a machine gun. even if you press space once it will read it more than once.
@@ -175,11 +179,26 @@ public class driverClass extends Application {
              		//still need to find a way to block the user from leaving SPACE pressed. otherwise it will shoot like a machine gun.
              		//also delete the bullet when it gets to more than 1050 in the x axis to save space
                 }
+               checkBulletIntersection(root.getChildren(), enemyList);
                
             }
+
+			private void checkBulletIntersection(ObservableList<Node> sceneObjs, ArrayList<Enemy> enemyList) {
+				for(Enemy asteroid : enemyList) {
+					for(Node obj : sceneObjs) {
+						if (obj.maxWidth(10) == detectBullet.maxWidth(10)) {
+							if(asteroid.getBoundsInParent().intersects(obj.getBoundsInParent())) {
+								asteroid.startDeath();
+							}
+						}
+					}
+				}
+			}
            
 		};
+		
 		timer.start();
+		
 		gameLoop.start();
     }
 

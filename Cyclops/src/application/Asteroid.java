@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class Asteroid extends EnemyController {
+public class Asteroid extends OtherController {
 
     public final static String[]    ASTEROID_FILES = {"resources/a10000.png", 
                                                       "resources/a10001.png", 
@@ -62,7 +62,7 @@ public class Asteroid extends EnemyController {
         
         // Draw, move and size the initial frame
         enemy = new Group(imgEnemy.get(0));
-        enemy.setTranslateX(700);
+        enemy.setTranslateX(900);
         enemy.setTranslateY(yTopLeftLoc);
         enemy.setScaleX(xSize / IMAGE_X_SIZE);
         enemy.setScaleY(ySize / IMAGE_Y_SIZE);
