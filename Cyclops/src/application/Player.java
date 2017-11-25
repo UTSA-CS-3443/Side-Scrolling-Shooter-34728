@@ -68,7 +68,7 @@ public class Player {
 	static void shoot() {
 		
 		final Rectangle rectBasicTimeline = new Rectangle(driverClass.node.getLayoutX()+70,driverClass.node.getLayoutY()+30 , 70, 10);//location and size of bullet
- 		rectBasicTimeline.setFill(Color.RED);
+ 		rectBasicTimeline.setFill(Color.GREEN);
  		final Timeline timeline = new Timeline();
  		timeline.setCycleCount(1);
  		timeline.setAutoReverse(false);
