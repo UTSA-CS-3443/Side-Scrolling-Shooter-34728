@@ -200,6 +200,7 @@ public class driverClass extends Application {
 						}
 					}
 				}
+		
 			}
            
 		};
@@ -208,7 +209,6 @@ public class driverClass extends Application {
 		
 		gameLoop.start();
     }
-
 
     public void reset_game() {
     	currentRate = startingSpawnRate;
@@ -234,31 +234,41 @@ public class driverClass extends Application {
     				currentRate *= rateProgression;
 					
 					//ASTERIOD SPAWN
-					double xAsteroidStart = (double)(myRandom.nextInt((int) (screenY- (Asteroid.SIDE_BUFFER *2))) + Asteroid.SIDE_BUFFER);
+					double xAsteroidStart = (double)(myRandom.nextInt((int) (screenY)));
 					int xAngleStart = myRandom.nextInt(enemyMaxAngle * 2) + 180 - enemyMaxAngle; 
 					
 					randomInt = myRandom.nextInt(100);
-					if (randomInt < 50 ) {
+					if (randomInt < 66 ) {
 						enemyList.add(new Asteroid(enemies, xAsteroidStart, -35, xAngleStart));
 					}
 					
 					
 					//ENEMY SPAWN
-	    			double xSpaceBugStart = (double)(myRandom.nextInt((int) (screenY- (SpaceBug.SIDE_BUFFER *2))) + SpaceBug.SIDE_BUFFER);
-	    			int xSpaceBugAngleStart;
-	    			//if(xSpaceBugStart-playerY<0)
-	    				xSpaceBugAngleStart = (int) ((-1*(xSpaceBugStart-playerY))/900*100); 
-	    			//else
-	    				//xSpaceBugAngleStart = (int) ((xSpaceBugStart-playerY)/900*100); 
-	    				randomInt = myRandom.nextInt(100);
-	 				if (randomInt < 99 )
-	 					enemyList.add(new SpaceBug(enemies,xSpaceBugStart,0, xSpaceBugAngleStart));
 					
+					//suicide
+					double xSpaceBugStart = (double)(myRandom.nextInt((int) (screenY )));
+					int xSpaceBugAngleStart = (int) ((-1*((xSpaceBugStart-playerY))/650)*100); 
+					if (randomInt < 69 ) 
+						enemyList.add(new SpaceBug(enemies,xSpaceBugStart,-35, xSpaceBugAngleStart));
+	    			
+					//wall of enemies
+	 				if (randomInt < 20 )
+	 				{
+	 					enemyList.add(new EnemyDefence(enemies,-85,0,0));
+	 					enemyList.add(new EnemyDefence(enemies,15,0,0));
+	 					enemyList.add(new EnemyDefence(enemies,115,0,0));
+	 					enemyList.add(new EnemyDefence(enemies,215,0,0));
+	 					enemyList.add(new EnemyDefence(enemies,315,0,0));
+	 					enemyList.add(new EnemyDefence(enemies,415,0,0));
+	 					enemyList.add(new EnemyDefence(enemies,515,0,0));
+	 					
+	 				}
+	 					
 					lastSpawn = timestamp;
+					
 				
 				}
-    			
-    			
+    		
 
 			}
 		};
