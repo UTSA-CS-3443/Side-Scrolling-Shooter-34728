@@ -48,10 +48,17 @@ public class driverClass extends Application {
 	protected ImageView imgBackground;
     boolean goNorth, goSouth;
 	static boolean shoot;
+	static boolean menu = false;
     private static Image warrior;
-    static Node  node;
+    static Node  node, node2, node3;
     
     private Rectangle detectBullet;
+    
+    private static Image imgBackground2;
+    private static Image imgBackground3;
+	//public final static String 	BACKGROUND_IMGS = "resources/StarBackground.gif";
+    public final static String TITLE = "resources/gameTitle.gif";
+    public final static String INSTRUCT = "resources/instructions.gif";
     
     public static void main(String[] args) {
     	launch(args);
@@ -60,7 +67,22 @@ public class driverClass extends Application {
 
 
     public void start(Stage firstStage) {
-		//////////////////////////////////
+		
+    	Stage mainStage = firstStage;
+		mainStage.setTitle("Starclops");
+		Group root = new Group();
+		Scene scene = new Scene(root, 1000, 700, Color.BLACK);
+		
+    	/*////////////////// code to move
+    	imgBackgroundS = new ImageView(new Image(getClass().getClassLoader().getResource(BACKGROUND_IMGS).toString()));
+		imgBackgroundS.setFitHeight(850);
+		imgBackgroundS.setFitWidth(1000);
+		root.getChildren().add(imgBackgroundS);
+		//////////////////*/
+    		
+    	
+    	
+    	//////////////////////////////////
 		//Alyssas code
 		enemyList = new ArrayList<Enemy>();
 		enemies = new Group();
@@ -75,32 +97,58 @@ public class driverClass extends Application {
 	    node = new ImageView(warrior);
 	    ((ImageView) node).setFitHeight(75);
 	    ((ImageView) node).setFitWidth(75);
+	    
+	    imgBackground2 = new Image("resources/gameTitle.png");
+	    node2 = new ImageView(imgBackground2);
+	    ((ImageView) node2).setFitHeight(150);
+	    ((ImageView) node2).setFitWidth(800);
+	    node2.relocate(100, 100);
+	    
+	    imgBackground3 = new Image("resources/instructions.png");
+	    node3 = new ImageView(imgBackground3);
+	    ((ImageView) node3).setFitHeight(75);
+	    ((ImageView) node3).setFitWidth(800);
+	    node3.relocate(100, 450);
+	    
 		imgBackground = new ImageView(new Image(getClass().getClassLoader().getResource(BACKGROUND_IMG).toString()));
 		imgBackground.setFitHeight(850);
 		imgBackground.setFitWidth(1000);	
 		
-       
-        
-        //declaring group
-        Group root = new Group();
+		/*
+		imgBackground2 = new ImageView(new Image(getClass().getClassLoader().getResource(TITLE).toString()));
+		imgBackground2.setFitHeight(175);
+		imgBackground2.setFitWidth(500);
+		
+		imgBackground3 = new ImageView(new Image(getClass().getClassLoader().getResource(INSTRUCT).toString()));
+		imgBackground3.setFitHeight(150);
+		imgBackground3.setFitWidth(900);
+        //declaring group(moved to top)
+        */
 		
 		
+		//imgBackgorundS = new ImageView(new Image(getClass().getClassLoader().getResource(BACKGROUND_IMGS).toString()));
+		//imgBackgroundS.setFitHeight(850);
+		//imgBackgroundS.setFitWidth(1000);
+		/*
+		root.getChildren().add(imgBackground2);
+		root.getChildren().add(imgBackground3);
+		*/
 		//adding the pictures to the scene
         root.getChildren().add(imgBackground);
 		root.getChildren().add(node);
+		root.getChildren().add(node2);
+		root.getChildren().add(node3);
 		root.getChildren().add(enemies);
+		
+		
 		//bullet is added inside the if space == true statement
 		
-	
-		
-		Stage mainStage = firstStage;
-		mainStage.setTitle("Starclops");
 		
 		//set the player at the middle of the screen.
 		Player.movePlayerTo(50, 350);
 		//plays the long background music.
 		play(0);
-		Scene scene = new Scene(root, 1000, 700, Color.BLACK);
+		
 		
 		//playerControlls
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -111,6 +159,7 @@ public class driverClass extends Application {
                 case UP:    goNorth = true; break;
                 case DOWN:  goSouth = true; break;
                 case SPACE:  shoot = true; break;
+                case ENTER: menu = true; break;
                 }
             }
         });
@@ -122,7 +171,7 @@ public class driverClass extends Application {
                 case UP:    goNorth = false; break;
                 case DOWN:  goSouth = false; break;
                 case SPACE: shoot = false;   break;
-
+                case ENTER: menu = false; break;
                 }
             }
         });
@@ -139,7 +188,7 @@ public class driverClass extends Application {
 	         System.exit(0);
 	     });
 	     
-	     detectBullet = new Rectangle(node.getLayoutX()+70,node.getLayoutY()+30 , 70, 10);
+	     detectBullet = new Rectangle(node.getLayoutX()+70,node.getLayoutY()+30 , 70, 7);
         AnimationTimer timer = new AnimationTimer() {
         	           
             public void handle(long now) {
@@ -151,9 +200,14 @@ public class driverClass extends Application {
                 //method call to move player
                 Player.movePlayerBy(dx, dy); 
                 
+                if (menu == true) {
+                	node2.relocate(100, -200);
+                	node3.relocate(100, -200);
+                }
+                
                 //everything that is inside the if statement is how the bullet is made
                if (shoot == true){
-            	   	final Rectangle rectBasicTimeline = new Rectangle(node.getLayoutX()+70,node.getLayoutY()+30 , 70, 10);//location and size of bullet
+            	   	final Rectangle rectBasicTimeline = new Rectangle(node.getLayoutX()+70,node.getLayoutY()+30 , 70, 7);//location and size of bullet
             	   	rectBasicTimeline.setFill(Color.LIMEGREEN);
              		final Timeline timeline = new Timeline();
              		timeline.setCycleCount(1);
