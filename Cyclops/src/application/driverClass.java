@@ -33,6 +33,7 @@ public class driverClass extends Application {
 	protected final double	screenY = 600;
 	protected ArrayList<Enemy> enemyList;
 	protected Group enemies;
+	protected int playerY =350;
 	protected double startingSpawnRate = 1;
 	protected double currentRate = startingSpawnRate;
 	protected double rateProgression = 0.995;
@@ -145,8 +146,14 @@ public class driverClass extends Application {
             public void handle(long now) {
                 //if statements that tells how much to move up and down
             	int dx = 0, dy = 0;
-                if (goNorth) dy -= 10; //how fast the player moves north
-                if (goSouth) dy += 10; //how fast the player moves south
+                if (goNorth) {
+                	dy -= 10; //how fast the player moves north
+                	playerY -=10;
+                }
+                if (goSouth) {
+                	dy += 10; //how fast the player moves south
+                	playerY +=10;
+                }
                 
                 //method call to move player
                 Player.movePlayerBy(dx, dy); 
@@ -224,19 +231,35 @@ public class driverClass extends Application {
     		int randomInt;
     		public void handle(long timestamp) {
     			if ((timestamp - lastSpawn >= currentRate * (long)1000000000)) {
-				currentRate *= rateProgression;
+    				currentRate *= rateProgression;
+					
+					//ASTERIOD SPAWN
+					double xAsteroidStart = (double)(myRandom.nextInt((int) (screenY- (Asteroid.SIDE_BUFFER *2))) + Asteroid.SIDE_BUFFER);
+					int xAngleStart = myRandom.nextInt(enemyMaxAngle * 2) + 180 - enemyMaxAngle; 
+					
+					randomInt = myRandom.nextInt(100);
+					if (randomInt < 50 ) {
+						enemyList.add(new Asteroid(enemies, xAsteroidStart, -35, xAngleStart));
+					}
+					
+					
+					//ENEMY SPAWN
+	    			double xSpaceBugStart = (double)(myRandom.nextInt((int) (screenY- (SpaceBug.SIDE_BUFFER *2))) + SpaceBug.SIDE_BUFFER);
+	    			int xSpaceBugAngleStart;
+	    			//if(xSpaceBugStart-playerY<0)
+	    				xSpaceBugAngleStart = (int) ((-1*(xSpaceBugStart-playerY))/900*100); 
+	    			//else
+	    				//xSpaceBugAngleStart = (int) ((xSpaceBugStart-playerY)/900*100); 
+	    				randomInt = myRandom.nextInt(100);
+	 				if (randomInt < 99 )
+	 					enemyList.add(new SpaceBug(enemies,xSpaceBugStart,0, xSpaceBugAngleStart));
+					
+					lastSpawn = timestamp;
 				
-			
-				double xAsteroidStart = (double)(myRandom.nextInt((int) (screenY- (Asteroid.SIDE_BUFFER *2))) + Asteroid.SIDE_BUFFER);
-				int xAngleStart = myRandom.nextInt(enemyMaxAngle * 2) + 180 - enemyMaxAngle; 
-				
-				randomInt = myRandom.nextInt(100);
-				if (randomInt < 50 ) {
-					enemyList.add(new Asteroid(enemies, xAsteroidStart, -35, xAngleStart));
 				}
-				lastSpawn = timestamp;
-				
-				}
+    			
+    			
+
 			}
 		};
 		spawnTime.start();

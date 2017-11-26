@@ -29,10 +29,10 @@ public class EnemyController extends Enemy {
      */
     @Override
     public void init () { 
-        radius=25;
+        radius=15;
         xSize = ySize = radius*2;
         timeToLive = 12;
-        color = Color.PURPLE;
+        color = Color.CYAN;
     }
     
     /**
@@ -40,19 +40,14 @@ public class EnemyController extends Enemy {
      */ 
     @Override
     public void move () { 
-        moveCycle += swingSpeed;
-        if (moveCycle > 360)
-                moveCycle = 0;
-        
-        xCycleVel = Math.sin(Math.toRadians(moveCycle)) * swingDistance;
-        if ((xCycleVel/swingDistance) > 0.3)
-            sideImage = 2;
-        else if ((xCycleVel/swingDistance) < -0.3)
-            sideImage = 1;
-        else
-            sideImage = 0;
-                
-        moveTo(xTopLeftLoc+xCycleVel-xVel, yTopLeftLoc-yVel);
+    	
+    	moveCycle += 1;
+	        if (moveCycle > 3)
+	                moveCycle = 0;
+	        if (moveCycle < 1)
+	            moveTo(xCenterLoc-xVel, yTopLeftLoc-yVel);
+	        
+	            
     }    
         
 }
