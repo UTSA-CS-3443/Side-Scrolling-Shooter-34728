@@ -111,4 +111,3 @@ public class EnemyDefence extends EnemyController{
         enemyDeathAnimation.play();
     }      
 }
-
