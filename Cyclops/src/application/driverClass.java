@@ -33,6 +33,7 @@ public class driverClass extends Application {
 	protected final double	screenY = 600;
 	protected ArrayList<Enemy> enemyList;
 	protected Group enemies;
+	protected int playerY =350; //added from github
 	protected double startingSpawnRate = 1;
 	protected double currentRate = startingSpawnRate;
 	protected double rateProgression = 0.995;
@@ -50,15 +51,18 @@ public class driverClass extends Application {
 	static boolean shoot;
 	static boolean menu = false;
     private static Image warrior;
-    static Node  node, node2, node3;
+    static Node  node, node2, node3, node4;
     
     private Rectangle detectBullet;
     
     private static Image imgBackground2;
     private static Image imgBackground3;
+    private static Image imgBackground4;
+    
+    private int playerDead, vulnerable;
 	//public final static String 	BACKGROUND_IMGS = "resources/StarBackground.gif";
-    public final static String TITLE = "resources/gameTitle.gif";
-    public final static String INSTRUCT = "resources/instructions.gif";
+    //public final static String TITLE = "resources/gameTitle.gif";
+    //public final static String INSTRUCT = "resources/instructions.gif";
     
     public static void main(String[] args) {
     	launch(args);
@@ -93,7 +97,7 @@ public class driverClass extends Application {
 		
 		
 		//declaring/setting  all the pictures and images used
-	    warrior = new Image("resources/E11.png");
+	    warrior = new Image("resources/nightraiderfixed.png");
 	    node = new ImageView(warrior);
 	    ((ImageView) node).setFitHeight(75);
 	    ((ImageView) node).setFitWidth(75);
@@ -194,8 +198,14 @@ public class driverClass extends Application {
             public void handle(long now) {
                 //if statements that tells how much to move up and down
             	int dx = 0, dy = 0;
-                if (goNorth) dy -= 10; //how fast the player moves north
-                if (goSouth) dy += 10; //how fast the player moves south
+            	if (goNorth) {
+                	dy -= 10; //how fast the player moves north
+                	playerY -=10;
+                }
+                if (goSouth) {
+                	dy += 10; //how fast the player moves south
+                	playerY +=10;
+                }
                 
                 //method call to move player
                 Player.movePlayerBy(dx, dy); 
@@ -203,13 +213,16 @@ public class driverClass extends Application {
                 if (menu == true) {
                 	node2.relocate(100, -200);
                 	node3.relocate(100, -200);
+                	vulnerable = 1;
                 }
                 
                 //everything that is inside the if statement is how the bullet is made
                if (shoot == true){
             	   	final Rectangle rectBasicTimeline = new Rectangle(node.getLayoutX()+70,node.getLayoutY()+30 , 70, 7);//location and size of bullet
             	   	rectBasicTimeline.setFill(Color.LIMEGREEN);
-             		final Timeline timeline = new Timeline();
+             		final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.1), e -> {
+             			root.getChildren().remove(rectBasicTimeline);
+             		}));
              		timeline.setCycleCount(1);
              		timeline.setAutoReverse(false);
              		
@@ -234,7 +247,15 @@ public class driverClass extends Application {
              		//also delete the bullet when it gets to more than 1050 in the x axis to save space
                 }
                checkBulletIntersection(root.getChildren(), enemyList);
-               
+               if (vulnerable == 1) checkPlayerIntersection(root.getChildren(), enemyList);
+               if (playerDead == 1 && vulnerable == 1) {
+            	   imgBackground4 = new Image("resources/gameOver.png");
+				    node4 = new ImageView(imgBackground4);
+				    ((ImageView) node4).setFitHeight(175);
+				    ((ImageView) node4).setFitWidth(800);
+				    node4.relocate(100, 250);
+				    root.getChildren().add(node4);
+               }
             }
 
 			private void checkBulletIntersection(ObservableList<Node> sceneObjs, ArrayList<Enemy> enemyList) {
@@ -243,6 +264,19 @@ public class driverClass extends Application {
 						if (obj.maxWidth(10) == detectBullet.maxWidth(10)) {
 							if(asteroid.getBoundsInParent().intersects(obj.getBoundsInParent())) {
 								asteroid.startDeath();
+							}
+						}
+					}
+				}
+			}
+			
+			private void checkPlayerIntersection(ObservableList<Node> sceneObjs, ArrayList<Enemy> enemyList) {
+				for(Enemy asteroid : enemyList) {
+					for(Node obj : sceneObjs) {
+						if (obj.maxWidth(75) == 75.0) {
+							if(asteroid.getBoundsInParent().intersects(obj.getBoundsInParent())) {
+								obj.relocate(-100, -100);
+								playerDead = 1;
 							}
 						}
 					}
@@ -281,16 +315,42 @@ public class driverClass extends Application {
 				currentRate *= rateProgression;
 				
 			
-				double xAsteroidStart = (double)(myRandom.nextInt((int) (screenY- (Asteroid.SIDE_BUFFER *2))) + Asteroid.SIDE_BUFFER);
+				//double xAsteroidStart = (double)(myRandom.nextInt((int) (screenY- (Asteroid.SIDE_BUFFER *2))) + Asteroid.SIDE_BUFFER);
+				double xAsteroidStart = (double)(myRandom.nextInt((int) (screenY)));
 				int xAngleStart = myRandom.nextInt(enemyMaxAngle * 2) + 180 - enemyMaxAngle; 
 				
 				randomInt = myRandom.nextInt(100);
-				if (randomInt < 50 ) {
+				//if (randomInt < 50 ) {
+				if (randomInt < 66) {
 					enemyList.add(new Asteroid(enemies, xAsteroidStart, -35, xAngleStart));
 				}
+				
+				
+    			
+				//ENEMY SPAWN
+				
+				//suicide
+				double xSpaceBugStart = (double)(myRandom.nextInt((int) (screenY )));
+				int xSpaceBugAngleStart = (int) ((-1*((xSpaceBugStart-playerY))/650)*100); 
+				if (randomInt < 50) {
+					enemyList.add(new SpaceBug(enemies,xSpaceBugStart,-35, xSpaceBugAngleStart));
+				}
+				//wall of enemies
+ 				if (randomInt < 10 )
+ 				{
+ 					enemyList.add(new EnemyDefence(enemies,-85,0,0));
+ 					enemyList.add(new EnemyDefence(enemies,15,0,0));
+ 					enemyList.add(new EnemyDefence(enemies,115,0,0));
+ 					enemyList.add(new EnemyDefence(enemies,215,0,0));
+ 					enemyList.add(new EnemyDefence(enemies,315,0,0));
+ 					enemyList.add(new EnemyDefence(enemies,415,0,0));
+ 					enemyList.add(new EnemyDefence(enemies,515,0,0));
+ 					
+ 				}
+ 					
 				lastSpawn = timestamp;
 				
-				}
+    			}
 			}
 		};
 		spawnTime.start();

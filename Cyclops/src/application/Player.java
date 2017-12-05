@@ -3,6 +3,8 @@ package application;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -12,6 +14,9 @@ import javafx.scene.Node;
 
 public class Player{
 	protected static Node rectBasicTimeline;
+	
+	private boolean isDying;
+    private boolean stop;
 	static void movePlayerBy(int dx, int dy) {
     	
     
@@ -66,4 +71,24 @@ public class Player{
  		//still need to find a way to block the user from leaving SPACE pressed. otherwise it will shoot like a machine gun.
  		//also delete the bullet when it gets to more than 1050 in the x axis to save space
 	}
+	
+    //public void startDeath () { 
+        /*isDying = true;
+        stop = true;
+        EventHandler<ActionEvent> beeDeathEventHandler = e -> {
+            int imgDeathIndex;
+			if (imgDeathIndex > 6) 
+                finishDeath();
+            //if (imgDeathIndex < 4) 
+                //new Explosion(root, xTopLeftLoc + myRandom.nextInt((int)xSize) - 10, yTopLeftLoc + myRandom.nextInt((int)ySize) - 10);
+            this.setOpacity(1-(0.15*imgDeathIndex++));
+        };
+            
+        enemyDeathAnimation = new Timeline(new KeyFrame(Duration.millis(100), beeDeathEventHandler));
+        enemyDeathAnimation.setCycleCount(8);
+        enemyDeathAnimation.play();
+    	*/
+    	//this.relocate()
+    //}  
+    
 }
